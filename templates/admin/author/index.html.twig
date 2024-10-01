@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Author{% endblock %}
+
+{% block body %}
+    <section id="about">
+		<div class="container px-4">
+			<div class="row gx-4 justify-content-center">
+				<div class="col-lg-8">
+					{{ form_start(form_author) }}
+                        {{ form_widget(form_author) }}
+                    {{ form_end(form_author) }}
+				</div>
+			</div>
+		</div>
+	</section>
+    
+{% endblock %}

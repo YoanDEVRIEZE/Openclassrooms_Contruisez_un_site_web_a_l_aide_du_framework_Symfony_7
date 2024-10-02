@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookController!{% endblock %}
+
+{% block body %}
+    <section id="about">
+		<div class="container px-4">
+			<div class="row gx-4 justify-content-center">
+				<div class="col-lg-8 w-50 m-auto">
+					{% for messageFlash in app.flashes('success') %}
+						<div class="alert alert-success"><b>{{ messageFlash }}</b></div>
+					{% endfor %}
+					{% for messageFlash in app.flashes('warning') %}
+						<div class="alert alert-warning"><b>{{ messageFlash }}</b></div>
+					{% endfor %}
+					{% for messageFlash in app.flashes('danger') %}
+						<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
+					{% endfor %}
+					<h1><u>Ajouter un livre :</u></h1>
+					<hr>
+					{{ form_start(form_book) }}
+                        {{ form_label(form_book.title) }} {{ form_widget(form_book.title) }}
+						{{ form_label(form_book.isbn) }} {{ form_widget(form_book.isbn) }}
+						{{ form_label(form_book.cover) }} {{ form_widget(form_book.cover) }}
+						{{ form_label(form_book.plot) }} {{ form_widget(form_book.plot) }}
+						{{ form_label(form_book.pageNumber) }} {{ form_widget(form_book.pageNumber) }}
+                        {{ form_label(form_book.status) }} {{ form_widget(form_book.status) }}
+                        {{ form_label(form_book.author) }} {{ form_widget(form_book.author) }}
+                        {{ form_label(form_book.editor) }} {{ form_widget(form_book.editor) }} 
+                         {{ form_label(form_book.editAt) }} {{ form_widget(form_book.editAt) }}                        
+						<hr>
+						<button type="submit" class="btn btn-primary">Enregistrer le livre</button>
+                    {{ form_end(form_book) }}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

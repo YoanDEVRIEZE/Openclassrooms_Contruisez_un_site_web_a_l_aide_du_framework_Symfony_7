@@ -4,16 +4,16 @@ namespace App\Enum;
 
 enum BookStatus: string
 {
-    case Available = 'available';
-    case Borrowed = 'borrowed';
-    case Unavailable = 'unavailable';
+    case Disponible = 'Disponible';
+    case Emprunté = 'Emprunté';
+    case Indisponible = 'Indisponible';
     
     public function getLabel(): string
     {
         return match ($this) {
-            self::Available => 'Disponible',
-            self::Borrowed => 'Emprunté',
-            self::Unavailable => 'Indisponible',
+            self::Disponible => 'Disponible',
+            self::Emprunté => 'Emprunté',
+            self::Indisponible => 'Indisponible',
         };
     }
 }

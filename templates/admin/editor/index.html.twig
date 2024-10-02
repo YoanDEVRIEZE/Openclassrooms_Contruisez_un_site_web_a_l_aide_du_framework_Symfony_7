@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author{% endblock %}
+{% block title %}Hello EditorController!{% endblock %}
 
 {% block body %}
     <section id="about">
@@ -16,16 +16,13 @@
 					{% for messageFlash in app.flashes('danger') %}
 						<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
 					{% endfor %}
-					<h1><u>Ajouter un auteur :</u></h1>
+					<h1><u>Ajouter un éditeur :</u></h1>
 					<hr>
-					{{ form_start(form_author) }}
-                        {{ form_label(form_author.name) }} {{ form_widget(form_author.name) }}
-						{{ form_label(form_author.dateOfBirth) }} {{ form_widget(form_author.dateOfBirth) }}
-						{{ form_label(form_author.dateOfDeath) }} {{ form_widget(form_author.dateOfDeath) }}
-						{{ form_label(form_author.nationality) }} {{ form_widget(form_author.nationality) }}
+					{{ form_start(form_editor) }}
+                        {{ form_label(form_editor.name) }} {{ form_widget(form_editor.name) }}
 						<hr>
-						<button type="submit" class="btn btn-primary">Enregistrer l'auteur</button>
-                    {{ form_end(form_author) }}
+						<button type="submit" class="btn btn-primary">Enregistrer l'éditeur</button>
+                    {{ form_end(form_editor) }}
 				</div>
 			</div>
 		</div>

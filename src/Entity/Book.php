@@ -7,6 +7,7 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
@@ -17,31 +18,42 @@ class Book
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 100)]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Isbn(type: 'isbn13', message: 'Le numéro ISBN doit-être sous la forme : 978-2-1234-5678-9')]
     private ?string $isbn = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(length: 255)]
     private ?string $cover = null;
 
-    #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $editAt = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $plot = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Positive()]
     #[ORM\Column]
     private ?int $pageNumber = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(length: 255)]
     private ?BookStatus $status = null;
 
+    #[Assert\NotBlank()]
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Editor $editor = null;
 
+    #[Assert\NotBlank()]
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Author $author = null;

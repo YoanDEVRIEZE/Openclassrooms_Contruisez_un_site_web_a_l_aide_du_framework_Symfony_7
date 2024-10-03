@@ -35,7 +35,7 @@ class BookController extends AbstractController
         }
 
         return $this->render('admin/book/index.html.twig', [
-            'form_book' => $formBook->createView(),
+            'form_book' => ($formBook->createView()) ? $formBook : $formBook->createView(),
         ]);
     }
 }

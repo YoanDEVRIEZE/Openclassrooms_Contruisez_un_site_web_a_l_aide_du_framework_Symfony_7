@@ -19,17 +19,36 @@
 					<h1><u>Ajouter un livre :</u></h1>
 					<hr>
 					{{ form_start(form_book) }}
-                        {{ form_label(form_book.title) }} {{ form_widget(form_book.title) }}
-						{{ form_label(form_book.isbn) }} {{ form_widget(form_book.isbn) }}
-						{{ form_label(form_book.cover) }} {{ form_widget(form_book.cover) }}
-						{{ form_label(form_book.plot) }} {{ form_widget(form_book.plot) }}
-						{{ form_label(form_book.pageNumber) }} {{ form_widget(form_book.pageNumber) }}
-                        {{ form_label(form_book.status) }} {{ form_widget(form_book.status) }}
-                        {{ form_label(form_book.author) }} {{ form_widget(form_book.author) }}
-                        {{ form_label(form_book.editor) }} {{ form_widget(form_book.editor) }} 
-                         {{ form_label(form_book.editAt) }} {{ form_widget(form_book.editAt) }}                        
-						<hr>
-						<button type="submit" class="btn btn-primary">Enregistrer le livre</button>
+						<div class="form-group mb-3">
+                        	{{ form_row(form_book.title) }}
+						</div>
+						<div class="form-group mb-3">
+							{{ form_row(form_book.cover) }}
+						</div>
+						<div class="form-group mb-3">
+							{{ form_row(form_book.plot) }}
+						</div>
+						<div class="form-group mb-3">
+							{{ form_row(form_book.pageNumber) }}
+						</div>
+						<div class="form-group mb-3">
+                        	{{ form_row(form_book.status) }}
+						</div>						
+						<div class="form-group mb-3">
+							{{ form_row(form_book.isbn) }}
+						</div>						
+						<div class="form-group mb-3">
+                        	{{ form_row(form_book.editAt) }}
+						</div>
+						<div class="form-group mb-3">
+                        	{{ form_row(form_book.author) }}
+						</div>
+						<div class="form-group mb-3">
+                        	{{ form_row(form_book.editor) }}
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Enregistrer le livre</button>
+						</div>
                     {{ form_end(form_book) }}
 				</div>
 			</div>

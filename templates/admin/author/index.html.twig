@@ -1,40 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author{% endblock %}
+{% block title %}Auteur{% endblock %}
 
 {% block body %}
     <section id="about">
 		<div class="container px-4">
 			<div class="row gx-4 justify-content-center">
 				<div class="col-lg-8 w-50 m-auto">
-					{% for messageFlash in app.flashes('success') %}
-						<div class="alert alert-success"><b>{{ messageFlash }}</b></div>
-					{% endfor %}
-					{% for messageFlash in app.flashes('warning') %}
-						<div class="alert alert-warning"><b>{{ messageFlash }}</b></div>
-					{% endfor %}
-					{% for messageFlash in app.flashes('danger') %}
-						<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
-					{% endfor %}
-					<h1><u>Ajouter un auteur :</u></h1>
-					<hr>
-					{{ form_start(form_author) }}
-						<div class="form-group mb-3">
-							{{ form_row(form_author.name) }}
-						</div>
-						<div class="form-group mb-3">
-							{{ form_row(form_author.dateOfBirth) }}
-						</div>
-						<div class="form-group mb-3">
-							{{ form_row(form_author.dateOfDeath) }}
-						</div>
-						<div class="form-group mb-3">
-							{{ form_row(form_author.nationality) }}
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary">Enregistrer l'auteur</button>
-						</div>
-					{{ form_end(form_author) }}
+					{% if form_author is defined %}
+						{% for messageFlash in app.flashes('success') %}
+							<div class="alert alert-success"><b>{{ messageFlash }}</b></div>
+						{% endfor %}
+						{% for messageFlash in app.flashes('warning') %}
+							<div class="alert alert-warning"><b>{{ messageFlash }}</b></div>
+						{% endfor %}
+						{% for messageFlash in app.flashes('danger') %}
+							<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
+						{% endfor %}
+						<h1>Ajouter un auteur :</h1>
+						<a class="btn btn-primary mb-3" href="{{ path('app_admin_author') }}"><- Liste des auteurs</a>
+						<hr>
+						{{ form_start(form_author) }}
+							<div class="form-group mb-3">
+								{{ form_row(form_author.name) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_author.dateOfBirth) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_author.dateOfDeath) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_author.nationality) }}
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Enregistrer l'auteur</button>
+							</div>
+						{{ form_end(form_author) }}
+					{% endif %}
+					{% if liste_author is defined %}
+						<h1>Liste d'auteurs</h1>
+						<a class="btn btn-primary mb-3" href="{{ path('app_admin_author_new') }}">+ Ajouter un auteur</a>
+						<ul class="list-group list-group-flush">
+							{% for author in liste_author %}
+								<a class="text-decoration-none text-primary" href="{{ path('app_admin_author_show', {'id' : author.id}) }}">
+									<div class="card mb-1">
+										<div class="card-body">
+											<div class="card-title d-flex justify-content-between">
+												<h4 class="mb-1">{{ author.name }}</h4>
+												<small class="text-muted">Identifiant : {{ author.id }}</small>
+											</div>
+										</div>
+									</div>
+								</a>
+							{% endfor %}
+						</ul>
+					{% endif %}
 				</div>
 			</div>
 		</div>

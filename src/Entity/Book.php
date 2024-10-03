@@ -28,6 +28,7 @@ class Book
     private ?string $isbn = null;
 
     #[Assert\NotBlank()]
+    #[Assert\Url()]
     #[ORM\Column(length: 255)]
     private ?string $cover = null;
 
@@ -36,11 +37,12 @@ class Book
     private ?\DateTimeImmutable $editAt = null;
 
     #[Assert\NotBlank()]
+    #[Assert\Length(min: 20)]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $plot = null;
 
     #[Assert\NotBlank()]
-    #[Assert\Positive()]
+    #[Assert\Type(type : 'integer')]
     #[ORM\Column]
     private ?int $pageNumber = null;
 

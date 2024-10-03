@@ -19,9 +19,12 @@
 					<h1><u>Ajouter un éditeur :</u></h1>
 					<hr>
 					{{ form_start(form_editor) }}
-                        {{ form_label(form_editor.name) }} {{ form_widget(form_editor.name) }}
-						<hr>
-						<button type="submit" class="btn btn-primary">Enregistrer l'éditeur</button>
+						<div class="form-group mb-3">
+                        	{{ form_row(form_editor.name) }}
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Enregistrer l'éditeur</button>
+						</div>
                     {{ form_end(form_editor) }}
 				</div>
 			</div>

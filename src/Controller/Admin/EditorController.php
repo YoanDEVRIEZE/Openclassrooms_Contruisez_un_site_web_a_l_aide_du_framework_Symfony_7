@@ -35,7 +35,7 @@ class EditorController extends AbstractController
         }
 
         return $this->render('admin/editor/index.html.twig', [
-            'form_editor' => $formEditor->createView(),
+            'form_editor' => ($formEditor->createView()) ? $formEditor : $formEditor->createView(),
         ]);
     }
 }

@@ -19,13 +19,20 @@
 					<h1><u>Ajouter un auteur :</u></h1>
 					<hr>
 					{{ form_start(form_author) }}
-                        {{ form_label(form_author.name) }} {{ form_widget(form_author.name) }}
-						{{ form_label(form_author.dateOfBirth) }} {{ form_widget(form_author.dateOfBirth) }}
-						{{ form_label(form_author.dateOfDeath) }} {{ form_widget(form_author.dateOfDeath) }}
-						{{ form_label(form_author.nationality) }} {{ form_widget(form_author.nationality) }}
-						<hr>
+						<div class="form-group">
+							{{ form_row(form_author.name) }}
+						</div>
+						<div class="form-group">
+							{{ form_row(form_author.dateOfBirth) }}
+						</div>
+						<div class="form-group">
+							{{ form_row(form_author.dateOfDeath) }}
+						</div>
+						<div class="form-group">
+							{{ form_row(form_author.nationality) }}
+						</div>
 						<button type="submit" class="btn btn-primary">Enregistrer l'auteur</button>
-                    {{ form_end(form_author) }}
+					{{ form_end(form_author) }}
 				</div>
 			</div>
 		</div>

@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
@@ -15,13 +17,16 @@ class Author
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 10)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $dateOfBirth = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $dateOfDeath = null;
 
     #[ORM\Column(length: 255, nullable: true)]

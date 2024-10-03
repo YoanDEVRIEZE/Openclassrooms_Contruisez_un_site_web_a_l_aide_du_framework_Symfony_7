@@ -32,10 +32,10 @@ class AuthorController extends AbstractController
 
             $this->addFlash('success', 'Validation : l\'auteur '. $author->getName() .' a été ajouté avec succès');
             return $this->redirectToRoute('app_admin_author_new');
-        }
+        } 
 
         return $this->render('admin/author/index.html.twig', [
-            'form_author' => $formAuthor->createView(),
+            'form_author' => ($formAuthor->createView()) ? $formAuthor : $formAuthor->createView(),
         ]);
     }
 }

@@ -3,14 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Author;
-use App\Entity\Book;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormTypeInterface;
 
 class AuthorType extends AbstractType
 {
@@ -19,7 +16,7 @@ class AuthorType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom / prénom :',
-                'required' => false,
+                'required' => true,
             ])
             ->add('dateOfBirth', DateType::class, [
                 'label' => 'Date de naissance :',

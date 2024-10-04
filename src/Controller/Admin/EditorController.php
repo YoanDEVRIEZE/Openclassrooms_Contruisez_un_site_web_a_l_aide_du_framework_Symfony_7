@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Editor;
 use App\Form\EditorType;
+use App\Repository\EditorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,12 +15,30 @@ use Symfony\Component\Routing\Attribute\Route;
 class EditorController extends AbstractController
 {
     private EntityManagerInterface $entityManagerInterface;
+    private EditorRepository $editorRepository;
 
-    public function __construct(EntityManagerInterface $entityManagerInterface) {
+    public function __construct(EntityManagerInterface $entityManagerInterface, EditorRepository $editorRepository) {
         $this->entityManagerInterface = $entityManagerInterface;
+        $this->editorRepository = $editorRepository;
     }
 
-    #[Route('/new', name: 'app_admin_editor')]
+    #[Route('', name:'app_admin_editor')]
+    public function editor() : Response 
+    {
+        return $this->render('admin/editor/index.html.twig', [
+            'liste_editor' => $this->editorRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/Show/{id}', name:'app_admin_editor_show')]
+    public function show($id) : Response 
+    {
+        return $this->render('admin/editor/show.html.twig', [
+            'editor' => $this->editorRepository->find($id),
+        ]);
+    }
+
+    #[Route('/new', name: 'app_admin_editor_new')]
     public function newEditor(Request $request): Response
     {
         $editor = new Editor();

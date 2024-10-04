@@ -23,14 +23,16 @@ class AuthorController extends AbstractController
     }
 
     #[Route('', name: 'app_admin_author')]
-    public function author() : Response {
+    public function author() : Response 
+    {
         return $this->render('admin/author/index.html.twig', [
             'liste_author' => $this->authorRepository->findAll(),
         ]);
     }
     
     #[Route('/Show/{id}', name: 'app_admin_author_show')]
-    public function show($id) : Response { 
+    public function show($id) : Response 
+    { 
         return $this->render('admin/author/show.html.twig', [
             'author' => $this->authorRepository->find($id),
         ]);

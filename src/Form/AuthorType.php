@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Author;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Intl\Countries;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AuthorType extends AbstractType
@@ -30,8 +32,9 @@ class AuthorType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('nationality', TextType::class, [
+            ->add('nationality', ChoiceType::class, [
                 'label' => 'Nationalité :',
+                'choices' => array_flip(Countries::getNames()),
                 'required' => false,
             ])
         ;

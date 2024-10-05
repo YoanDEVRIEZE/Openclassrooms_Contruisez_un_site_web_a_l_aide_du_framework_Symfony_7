@@ -38,12 +38,12 @@
 							</div>
 						{{ form_end(form_author) }}
 					{% endif %}
-					{% if liste_author is defined %}
+					{% if pagerfanta is defined %}
 						<h1>Liste d'auteurs</h1>
 						<a class="btn btn-primary mb-3" href="{{ path('app_admin_author_new') }}">+ Ajouter un auteur</a>
 						<ul class="list-group list-group-flush">
-							{% for author in liste_author %}
-								<a class="text-decoration-none text-primary" href="{{ path('app_admin_author_show', {'id' : author.id}) }}">
+							{% for author in pagerfanta %}
+								<a class="text-decoration-none text-primary mb-3" href="{{ path('app_admin_author_show', {'id' : author.id}) }}">
 									<div class="card mb-1">
 										<div class="card-body">
 											<div class="card-title d-flex justify-content-between">
@@ -55,6 +55,7 @@
 								</a>
 							{% endfor %}
 						</ul>
+						{{ pagerfanta(pagerfanta, 'twitter_bootstrap5', { prev_message: 'Précédent', next_message: 'Suivant'}) }}
 					{% endif %}
 				</div>
 			</div>

@@ -7,35 +7,31 @@
 		<div class="container px-4">
 			<div class="row gx-4 justify-content-center">
 				<div class="col-lg-8 w-50 m-auto">
-                    <h1>Détail de l'auteur :</h1>
+                    <h1>Auteur : </h1>
                     <a class="btn btn-primary mb-3" href="{{ path('app_admin_author') }}"><- Liste des auteurs</a>
-                    <div class="form-group">
-                        <b>Identifiant: </b>{{ author.id }}
-                    </div>
-                    <div class="form-group">
-                        <b>Nom / Prénom : </b>{{ author.name }}
-                    </div>
-                    <div class="form-group">
-                        <b>Nationalité : </b>{{ author.nationality }}
-                    </div>
-                    <div class="form-group">
-                        <b>Date de naissance : </b>{{ author.dateOfBirth | date ('d/m/Y') }}
-                    </div>
-                    {% if author.dateOfDeath != "" %}
-                        <div class="form-group">
-                            <b>Date du décès : </b>{{ author.dateOfDeath | date ('d/m/Y') }}
+                    {% if author is not null %}
+                        <div class="card mb-1 m-auto">
+                            <div class="card-body">
+                                <div class="card-title d-flex justify-content-between">
+                                    <h4 class="mb-1">{{ author.name }}</h4>
+                                    <small class="text-muted">Identifiant : {{ author.id }}</small>
+                                </div>
+                                <div class="d-flex justify-content-between card-text">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Date de naissance : {{ author.dateOfBirth|date('d M Y') }}</li>
+                                        {% if author.dateOfDeath is not null %}
+                                            <li class="list-group-item">Date de décès : {{ author.dateOfDeath|date('d M Y') }}</li>
+                                        {% endif %}
+                                    </ul>
+                                    <p><small>Nationalité : {{ author.nationality }}</small></p>
+                                </div>
+                            </div>
                         </div>
+                    {% else %}
+                        <div>Auteur non trouvé</div>
                     {% endif %}
-                    <div class="form-group">
-                        <b>Livres de cet auteur : </b>
-                        <ul>
-                            {% for livres in author.books %}
-                                <li>{{ livres.title }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
                 </div>
 			</div>
 		</div>
-	</section>
+    </section>
 {% endblock %}

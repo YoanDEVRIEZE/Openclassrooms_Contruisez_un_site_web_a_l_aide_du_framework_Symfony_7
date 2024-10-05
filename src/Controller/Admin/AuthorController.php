@@ -30,11 +30,11 @@ class AuthorController extends AbstractController
         ]);
     }
     
-    #[Route('/Show/{id}', name: 'app_admin_author_show')]
-    public function show($id) : Response 
+    #[Route('/Show/{id}', name: 'app_admin_author_show',  requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function show(?Author $author) : Response 
     { 
         return $this->render('admin/author/show.html.twig', [
-            'author' => $this->authorRepository->find($id),
+            'author' => $author,
         ]);
     }
 

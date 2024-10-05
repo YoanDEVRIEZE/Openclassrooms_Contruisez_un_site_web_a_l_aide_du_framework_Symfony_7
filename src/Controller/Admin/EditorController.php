@@ -30,11 +30,11 @@ class EditorController extends AbstractController
         ]);
     }
 
-    #[Route('/Show/{id}', name:'app_admin_editor_show')]
-    public function show($id) : Response 
+    #[Route('/Show/{id}', name:'app_admin_editor_show', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function show(?Editor $editor) : Response 
     {
         return $this->render('admin/editor/show.html.twig', [
-            'editor' => $this->editorRepository->find($id),
+            'editor' => $editor,
         ]);
     }
 

@@ -2,6 +2,8 @@
 
 {% block title %}Hello BookController!{% endblock %}
 
+
+
 {% block body %}
     <section id="about">
 		<div class="container px-4">
@@ -16,40 +18,61 @@
 					{% for messageFlash in app.flashes('danger') %}
 						<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
 					{% endfor %}
-					<h1><u>Ajouter un livre :</u></h1>
-					<hr>
-					{{ form_start(form_book) }}
-						<div class="form-group mb-3">
-                        	{{ form_row(form_book.title) }}
-						</div>
-						<div class="form-group mb-3">
-							{{ form_row(form_book.cover) }}
-						</div>
-						<div class="form-group mb-3">
-							{{ form_row(form_book.plot) }}
-						</div>
-						<div class="form-group mb-3">
-							{{ form_row(form_book.pageNumber) }}
-						</div>
-						<div class="form-group mb-3">
-                        	{{ form_row(form_book.status) }}
-						</div>						
-						<div class="form-group mb-3">
-							{{ form_row(form_book.isbn) }}
-						</div>						
-						<div class="form-group mb-3">
-                        	{{ form_row(form_book.editAt) }}
-						</div>
-						<div class="form-group mb-3">
-                        	{{ form_row(form_book.author) }}
-						</div>
-						<div class="form-group mb-3">
-                        	{{ form_row(form_book.editor) }}
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-primary">Enregistrer le livre</button>
-						</div>
-                    {{ form_end(form_book) }}
+					{% if form_book is defined %}
+						<h1>Ajouter un livre :</h1>
+						<a class="btn btn-primary mb-3" href="{{ path('app_admin_book') }}"><- Liste des livres</a>
+						<hr>
+						{{ form_start(form_book) }}
+							<div class="form-group mb-3">
+								{{ form_row(form_book.title) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_book.cover) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_book.plot) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_book.pageNumber) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_book.status) }}
+							</div>						
+							<div class="form-group mb-3">
+								{{ form_row(form_book.isbn) }}
+							</div>						
+							<div class="form-group mb-3">
+								{{ form_row(form_book.editAt) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_book.author) }}
+							</div>
+							<div class="form-group mb-3">
+								{{ form_row(form_book.editor) }}
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Enregistrer le livre</button>
+							</div>
+						{{ form_end(form_book) }}
+					{% endif %}
+					{% if liste_book is defined %}
+						<h1>Liste des livres</h1>
+						<a class="btn btn-primary mb-3" href="{{ path('app_admin_book_new', ) }}">+ Ajouter un livre</a>
+						<ul class="list-group list-group-flush">
+							{% for book in liste_book %}
+								<a class="text-decoration-none text-primary mb-3" href="{{ path('app_admin_book_show', {'id' : book.id}) }}">
+									<div class="card mb-1">
+										<div class="card-body">
+											<div class="card-title d-flex justify-content-between">
+												<h4 class="mb-1">{{ book.title }}</h4>
+												<small class="text-muted">Identifiant : {{ book.id }}</small>
+											</div>
+										</div>
+									</div>
+								</a>
+							{% endfor %}
+						</ul>
+					{% endif %}					
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livres{% endblock %}
+
+{% block body %}
+    <section id="about">
+		<div class="container px-4">
+			<div class="row gx-4 justify-content-center">
+				<div class="col-lg-8 w-50 m-auto">
+                    {% for messageFlash in app.flashes('success') %}
+						<div class="alert alert-success"><b>{{ messageFlash }}</b></div>
+					{% endfor %}
+					{% for messageFlash in app.flashes('warning') %}
+						<div class="alert alert-warning"><b>{{ messageFlash }}</b></div>
+					{% endfor %}
+					{% for messageFlash in app.flashes('danger') %}
+						<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
+					{% endfor %}
+                    <h1>Auteur : </h1>
+                    <a class="btn btn-primary mb-3" href="{{ path('app_admin_book') }}"><- Liste des livres</a>
+                    <a class="btn btn-primary mb-3" href="{{ path('app_admin_book_edit', {id: book.id }) }}">Modifier le livre</a>
+                    {% if book is not null %}
+                        <div class="card mb-1 m-auto">
+                            <div class="card-body">
+                                <img class="d-block mx-auto rounded img-fluid mb-3" src="{{ book.cover }}" alt="{{ book.title }}">
+                                <div class="card-title d-flex justify-content-between">
+                                    <h4 class="mb-1">{{ book.title }}</h4>
+                                </div>
+                                <div class="d-flex justify-content-between card-text">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><b>Identifiant</b> : {{ book.id }}</li>
+                                        <li class="list-group-item"><b>Auteur</b> : {{ book.author.name }}</li>
+                                        <li class="list-group-item"><b>Editeur</b> : {{ book.editor.name }}</li>
+                                        <li class="list-group-item"><b>Date d'édition</b> : {{ book.editAt|date('d-m-Y') }}</li>
+                                        <li class="list-group-item"><b>Disponibilité</b> : {{ book.status.name }}</li>
+                                        <li class="list-group-item"><b>Numéro ISBN</b> : {{ book.isbn }}</li>
+                                        <li class="list-group-item"><b>Résumé</b> : <p>{{ book.plot }}</p></li>
+                                        <li class="list-group-item"><b>Nombre de page</b> : {{ book.pageNumber }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div>Auteur non trouvé</div>
+                    {% endif %}
+                </div>
+			</div>
+		</div>
+    </section>
+{% endblock %}

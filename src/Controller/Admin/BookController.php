@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Book;
 use App\Form\BookType;
+use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,15 +15,34 @@ use Symfony\Component\Routing\Attribute\Route;
 class BookController extends AbstractController
 {
     private EntityManagerInterface $entityManagerInterface;
+    private BookRepository $bookRepository;
 
-    Public function __construct(EntityManagerInterface $entityManagerInterface) {
+    Public function __construct(EntityManagerInterface $entityManagerInterface, BookRepository $bookRepository) {
         $this->entityManagerInterface = $entityManagerInterface;
+        $this->bookRepository = $bookRepository;
     }
 
-    #[Route('/new', name: 'app_admin_book')]
-    public function newAuthor(Request $request): Response
+    #[Route('', name: 'app_admin_book')]
+    public function book() : Response
     {
-        $book = new Book();
+        return $this->render('admin/book/index.html.twig', [
+            'liste_book' => $this->bookRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/{id}/Show', name: 'app_admin_book_show', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function showBook(Book $book) : Response
+    {
+        return $this->render('admin/book/show.html.twig', [
+            'book' => $this->bookRepository->find($book),
+        ]);
+    }
+
+    #[Route('/New', name: 'app_admin_book_new')]
+    #[Route('/{id}/Edit', name: 'app_admin_book_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function newBook(?Book $book, Request $request): Response
+    {
+        $book ??= new Book();
         $formBook = $this->createForm(BookType::class, $book);
         $formBook->handleRequest($request);
 
@@ -30,8 +50,13 @@ class BookController extends AbstractController
             $this->entityManagerInterface->persist($book);
             $this->entityManagerInterface->flush();
 
-            $this->addFlash('success', 'Validation : le livre '.$book->getTitle().' a été ajouté avec succès');
-            return $this->redirectToRoute("app_admin_book");
+            if ($request->attributes->get('_route') === 'app_admin_book_new') {
+                $this->addFlash('success', 'Validation : le livre '.$book->getTitle().' a été ajouté avec succès');
+                return $this->redirectToRoute('app_admin_book');
+            }
+            
+            $this->addFlash('success', 'Validation : le livre '.$book->getTitle().' a été modifié avec succès');
+            return $this->redirectToRoute('app_admin_book_show', ['id' => $book->getId()]);
         }
 
         return $this->render('admin/book/index.html.twig', [

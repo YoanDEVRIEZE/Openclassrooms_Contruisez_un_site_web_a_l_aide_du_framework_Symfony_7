@@ -52,7 +52,7 @@ class BookController extends AbstractController
 
             if ($request->attributes->get('_route') === 'app_admin_book_new') {
                 $this->addFlash('success', 'Validation : le livre '.$book->getTitle().' a été ajouté avec succès');
-                return $this->redirectToRoute('app_admin_book');
+                return $this->redirectToRoute('app_admin_book_new');
             }
             
             $this->addFlash('success', 'Validation : le livre '.$book->getTitle().' a été modifié avec succès');

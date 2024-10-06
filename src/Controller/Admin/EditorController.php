@@ -52,7 +52,7 @@ class EditorController extends AbstractController
 
             if ($request->attributes->get('_route') === 'app_admin_editor_new') {
                 $this->addFlash('success', 'Validation : l\'éditeur '.$editor->getName().' a été ajouté avec succès.'); 
-                return $this->redirectToRoute('app_admin_editor');
+                return $this->redirectToRoute('app_admin_editor_new');
             }
 
             $this->addFlash('success', 'Validation : l\'éditeur '.$editor->getName().' a été modifié avec succès.'); 

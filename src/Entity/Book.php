@@ -24,7 +24,7 @@ class Book
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Isbn(type: 'isbn13', message: 'Le numéro ISBN doit-être sous la forme : 978-2-1234-5678-9')]
+    #[Assert\Isbn(type: 'isbn13', message: 'Le numéro ISBN doit-être sous la forme : 978-2123456789')]
     private ?string $isbn = null;
 
     #[Assert\NotBlank()]

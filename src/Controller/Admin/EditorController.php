@@ -39,9 +39,10 @@ class EditorController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_editor_new')]
-    public function newEditor(Request $request): Response
+    #[Route('/{id}/Edit', name: 'app_admin_editor_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function newEditor(?Editor $editor, Request $request): Response
     {
-        $editor = new Editor();
+        $editor ??= new Editor();
         $formEditor = $this->createForm(EditorType::class, $editor);
         $formEditor->handleRequest($request);
 
@@ -49,8 +50,13 @@ class EditorController extends AbstractController
             $this->entityManagerInterface->persist($editor);
             $this->entityManagerInterface->flush();
 
-            $this->addFlash('success', 'Validation : l\'éditeur '.$editor->getName().' a été ajouté avec succès.'); 
-            return $this->redirectToRoute('app_admin_editor');
+            if ($request->attributes->get('_route') === 'app_admin_editor_new') {
+                $this->addFlash('success', 'Validation : l\'éditeur '.$editor->getName().' a été ajouté avec succès.'); 
+                return $this->redirectToRoute('app_admin_editor');
+            }
+
+            $this->addFlash('success', 'Validation : l\'éditeur '.$editor->getName().' a été modifié avec succès.'); 
+            return $this->redirectToRoute('app_admin_editor_show', ['id' => $editor->getId()]);
         }
 
         return $this->render('admin/editor/index.html.twig', [

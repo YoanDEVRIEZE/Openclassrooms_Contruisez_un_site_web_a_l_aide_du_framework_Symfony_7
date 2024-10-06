@@ -2,6 +2,8 @@
 
 {% block title %}Editeurs{% endblock %}
 
+{% set action = app.current_route == 'app_admin_editor_new' ? 'Ajout' : 'Édition' %}
+
 {% block body %}
     <section id="about">
 		<div class="container px-4">
@@ -17,7 +19,7 @@
 						{% for messageFlash in app.flashes('danger') %}
 							<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
 						{% endfor %}
-						<h1>Ajouter un éditeur :</h1>
+						<h1>{{ action }} d'éditeur :</h1>
 						<a class="btn btn-primary mb-3" href="{{ path('app_admin_editor') }}"><- Liste des éditeurs</a>
 						<hr>
 						{{ form_start(form_editor) }}

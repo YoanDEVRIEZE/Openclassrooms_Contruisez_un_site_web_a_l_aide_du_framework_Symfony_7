@@ -56,10 +56,11 @@ class AuthorController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_author_new')]
-    public function newAuthor(Request $request): Response
+    #[Route('/new', name: 'app_admin_author_new', methods: ['GET', 'POST'])]
+    #[Route('/{id}/Edit', name: 'app_admin_author_edit', requirements: ['id' => '\d+'], methods:['GET', 'POST'])]
+    public function newAuthor(?Author $author, Request $request): Response
     {
-        $author = new Author();
+        $author ??= new Author();
         $formAuthor = $this->createForm(AuthorType::class, $author);
         $formAuthor->handleRequest($request);
 
@@ -67,8 +68,13 @@ class AuthorController extends AbstractController
             $this->entityManagerInterface->persist($author);
             $this->entityManagerInterface->flush();
 
-            $this->addFlash('success', 'Validation : l\'auteur '. $author->getName() .' a été ajouté avec succès');
-            return $this->redirectToRoute('app_admin_author_new');
+            if ($request->attributes->get('_route') === 'app_admin_author_new') {
+                $this->addFlash('success', 'Validation : l\'auteur '. $author->getName() .' a été ajouté avec succès');
+                return $this->redirectToRoute('app_admin_author_new');
+            }
+
+            $this->addFlash('success', 'Validation : l\'auteur '. $author->getName() .' a été modifié avec succès');
+            return $this->redirectToRoute('app_admin_author_show', ['id' => $author->getId()]);            
         } 
 
         return $this->render('admin/author/index.html.twig', [

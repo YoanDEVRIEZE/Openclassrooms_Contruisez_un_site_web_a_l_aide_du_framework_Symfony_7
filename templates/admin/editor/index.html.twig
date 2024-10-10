@@ -36,7 +36,7 @@
 						<a class="btn btn-primary mb-3" href="{{ path('app_admin_editor_new') }}">+ Ajouter un éditeur</a>
 						<ul class="list-group list-group-flush">
 							{% for editor in liste_editor %}
-								<a class="text-decoration-none text-primary" href="{{ path('app_admin_editor_show', {'id' : editor.id}) }}">
+								<a class="text-decoration-none text-primary mb-3" href="{{ path('app_admin_editor_show', {'id' : editor.id}) }}">
 									<div class="card mb-1">
 										<div class="card-body">
 											<div class="card-title d-flex justify-content-between">
@@ -48,6 +48,7 @@
 								</a>
 							{% endfor %}
 						</ul>
+						{{ pagerfanta(liste_editor, 'twitter_bootstrap5', { prev_message: 'Précédent', next_message: 'Suivant'}) }}
 					{% endif %}
 				</div>
 			</div>

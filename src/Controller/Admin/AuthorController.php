@@ -43,6 +43,11 @@ class AuthorController extends AbstractController
             new QueryAdapter($qb),
         );
 
+        $currentPage = $request->query->getInt('page', 1);
+        $pagerfanta->setMaxPerPage(5);
+        $pagerfanta->setCurrentPage($currentPage);  
+        $pagerfanta->getCurrentPageResults();
+
         return $this->render('admin/author/index.html.twig', [
             'pagerfanta' => $pagerfanta,
         ]);

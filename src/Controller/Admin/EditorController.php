@@ -6,6 +6,8 @@ use App\Entity\Editor;
 use App\Form\EditorType;
 use App\Repository\EditorRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,10 +25,21 @@ class EditorController extends AbstractController
     }
 
     #[Route('', name:'app_admin_editor')]
-    public function editor() : Response 
+    public function editor(Request $request) : Response 
     {
+        $qb = $this->editorRepository->findListeEditor();;
+
+        $pagerfanta = new Pagerfanta(
+            new QueryAdapter($qb),
+        );
+
+        $currentPage = $request->query->getInt('page', 1);
+        $pagerfanta->setMaxPerPage(5);
+        $pagerfanta->setCurrentPage($currentPage);
+        $pagerfanta->getCurrentPageResults();
+
         return $this->render('admin/editor/index.html.twig', [
-            'liste_editor' => $this->editorRepository->findAll(),
+            'liste_editor' => $pagerfanta,
         ]);
     }
 

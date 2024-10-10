@@ -33,6 +33,7 @@
 					{% endif %}
 					{% if liste_editor is defined %}
 						<h1>Liste des éditeurs</h1>
+						<a class="btn btn-success mb-3" href="{{ path('app_admin_main') }}"><- Retour à l'interface administrateur</a>
 						<a class="btn btn-primary mb-3" href="{{ path('app_admin_editor_new') }}">+ Ajouter un éditeur</a>
 						<ul class="list-group list-group-flush">
 							{% for editor in liste_editor %}

@@ -55,6 +55,7 @@
 					{% endif %}
 					{% if liste_book is defined %}
 						<h1>Liste des livres</h1>
+						<a class="btn btn-success mb-3" href="{{ path('app_admin_main') }}"><- Retour à l'interface administrateur</a>
 						<a class="btn btn-primary mb-3" href="{{ path('app_admin_book_new', ) }}">+ Ajouter un livre</a>
 						<ul class="list-group list-group-flush">
 							{% for book in liste_book %}

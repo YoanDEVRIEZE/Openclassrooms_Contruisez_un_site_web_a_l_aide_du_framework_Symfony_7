@@ -42,6 +42,7 @@
 					{% endif %}
 					{% if pagerfanta is defined %}
 						<h1>Liste d'auteurs</h1>
+						<a class="btn btn-success mb-3" href="{{ path('app_admin_main') }}"><- Retour à l'interface administrateur</a>
 						<a class="btn btn-primary mb-3" href="{{ path('app_admin_author_new') }}">+ Ajouter un auteur</a>
 						<ul class="list-group list-group-flush">
 							{% for author in pagerfanta %}

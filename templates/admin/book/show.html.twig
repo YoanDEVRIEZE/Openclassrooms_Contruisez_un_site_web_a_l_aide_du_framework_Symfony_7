@@ -16,7 +16,7 @@
 					{% for messageFlash in app.flashes('danger') %}
 						<div class="alert alert-danger"><b>{{ messageFlash }}</b></div>
 					{% endfor %}
-                    <h1>Auteur : </h1>
+                    <h1>Livre : </h1>
                     <a class="btn btn-primary mb-3" href="{{ path('app_admin_book') }}"><- Liste des livres</a>
                     <a class="btn btn-primary mb-3" href="{{ path('app_admin_book_edit', {id: book.id }) }}">Modifier le livre</a>
                     {% if book is not null %}

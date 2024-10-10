@@ -66,6 +66,10 @@ class Book
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'book', orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $createby = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -210,6 +214,18 @@ class Book
                 $comment->setBook(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreateby(): ?User
+    {
+        return $this->createby;
+    }
+
+    public function setCreateby(?User $createby): static
+    {
+        $this->createby = $createby;
 
         return $this;
     }

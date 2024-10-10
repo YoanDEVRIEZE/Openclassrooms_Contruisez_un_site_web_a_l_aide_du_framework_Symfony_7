@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Book;
+use App\Entity\User;
 use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('IS_AUTHENTICATED')]
 #[Route('/Admin/Book')]
 class BookController extends AbstractController
 {
@@ -57,11 +60,21 @@ class BookController extends AbstractController
     #[Route('/{id}/Edit', name: 'app_admin_book_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function newBook(?Book $book, Request $request): Response
     {
+        if ($book) {
+            $this->denyAccessUnlessGranted('book.is_creator', $book);
+        }
+
         $book ??= new Book();
         $formBook = $this->createForm(BookType::class, $book);
         $formBook->handleRequest($request);
 
         if ($formBook->isSubmitted() && $formBook->isValid()) {
+            $user = $this->getUser();
+
+            if (!$book->getId() && $user instanceof User) {
+                $book->setCreateby($user);
+            }
+            
             $this->entityManagerInterface->persist($book);
             $this->entityManagerInterface->flush();
 
